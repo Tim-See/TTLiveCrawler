@@ -7,6 +7,8 @@ import org.jsoup.select.Elements;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LivePZHistorie {
     private Document doc;
@@ -15,27 +17,16 @@ public class LivePZHistorie {
         this.doc = doc;
     }
 
-    public  Historieneintrag getHistorieneintragbyMatchId(int id){
+    public  List<Historieneintrag> getHistorieneintraege(){
         Element element;
-        element = this.doc.getElementById("Match"+id);
-        if(element == null)
-            element = this.doc.getElementById("Match"+id+"_0");
-        System.out.println(element.getElementsByTag("td"));
-            return new Historieneintrag(getDate(element),1000);
+        element = this.doc.getElementById("ImageMap");
+        Elements areas = element.getElementsByTag("area");
+        List<Historieneintrag> eintraege = new ArrayList<>();
+        for(Element element1 : areas){
+            String[] daten  = element1.attr("title").split(": ");
+            eintraege.add(new Historieneintrag(LocalDate.parse(daten[0],DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                    ,Integer.parseInt(daten[1])));
+        }
+        return eintraege;
     }
-    private LocalDate getDate(Element element){
-        String output = element.getElementsByTag("td").get(1).toString();
-        return LocalDate.parse(output.substring(4,output.length()-5), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    }
-    private int getPoints(Element element){
-        Elements tds = element.getElementsByTag("td");
-        String points = tds.get(tds.size()-3).toString().substring(4,8);
-        return Integer.parseInt(points);
-    }
-
-
-
-
-
-
 }

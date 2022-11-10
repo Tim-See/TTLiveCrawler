@@ -2,6 +2,7 @@ package org.example;
 
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.time.LocalDate;
@@ -14,17 +15,27 @@ public class LivePZHistorie {
         this.doc = doc;
     }
 
-    public  LocalDate getDatebyMatchId(int id){
-        Elements values;
-    try {
-        values = this.doc.getElementById("Match"+id+"1").getElementsByTag("td");
+    public  Historieneintrag getHistorieneintragbyMatchId(int id){
+        Element element;
+        element = this.doc.getElementById("Match"+id);
+        if(element == null)
+            element = this.doc.getElementById("Match"+id+"_0");
+        System.out.println(element.getElementsByTag("td"));
+            return new Historieneintrag(getDate(element),1000);
     }
-    catch(IndexOutOfBoundsException e){
-        values = this.doc.getElementById("Match0"+id+"_0").getElementsByTag("td");
-
-    }
-        String output = values.get(1).toString();
+    private LocalDate getDate(Element element){
+        String output = element.getElementsByTag("td").get(1).toString();
         return LocalDate.parse(output.substring(4,output.length()-5), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
+    private int getPoints(Element element){
+        Elements tds = element.getElementsByTag("td");
+        String points = tds.get(tds.size()-3).toString().substring(4,8);
+        return Integer.parseInt(points);
+    }
+
+
+
+
+
 
 }

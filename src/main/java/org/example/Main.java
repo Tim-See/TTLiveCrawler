@@ -20,7 +20,7 @@ public class Main {
                             "&L3P=83950&Page=EntwicklungTTR")
                     .get();
             LivePZHistorie livePZHistorie = new LivePZHistorie(doc);
-            System.out.println(livePZHistorie.getDatebyMatchId(1));
+            System.out.println(livePZHistorie.getHistorieneintragbyMatchId(5).getDate());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -3,8 +3,8 @@ package org.example;
 import java.util.List;
 
 public class Spieler {
-    List<Historieneintrag> lpzWerte;
-    String name;
+    private List<Historieneintrag> lpzWerte;
+    private String name;
 
     public List<Historieneintrag> getLpzWerte() {
         return lpzWerte;

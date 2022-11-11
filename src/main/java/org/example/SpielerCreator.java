@@ -1,13 +1,14 @@
 package org.example;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SpielerCreator {
     private Document vereinDoc;
@@ -38,7 +39,7 @@ public class SpielerCreator {
                                 .get(3)
                                 .getElementsByTag("a")
                                 .attr("href");
-                spielerListe.addAll(getTeam(link));
+                spielerListe.addAll(getTeamListe(link));
             }
             catch(Exception ignored){
             }
@@ -46,26 +47,41 @@ public class SpielerCreator {
         return spielerListe;
     }
 
-    private List<Spieler> getTeam(String link) throws IOException {
-        //TODO: es wird nur der erste Spieler ausgegeben
+    private List<Spieler> getTeamListe(String link) throws IOException {
         List<Spieler> teamListe = new ArrayList<>();
         Document doc = Jsoup
                 .connect(link)
                 .get();
-        Element element = doc.getElementsByTag("table")
-                .get(12)
-                .getElementsByTag("tr")
-                .get(3).getElementsByTag("td")
-                .get(3).getElementsByTag("a").get(0);
+        for(Pair<String,String> linkz : getSpielerLinks(doc)){
+            Document docu = Jsoup
+                    .connect(linkz.getRight())
+                    .get();
+            LivePZHistorie livePZHistorie = new LivePZHistorie(docu);
+            teamListe.add(new Spieler(livePZHistorie.getHistorieneintraege(),linkz.getLeft()));
+        }
 
-        String name = element.text();
-        String playerLink ="https://steinburg.tischtennislive.de/"+element.attr("href")
-                .replace("Vorrunde","EntwicklungTTR");
-        Document docu = Jsoup
-                .connect(playerLink)
-                .get();
-        LivePZHistorie livePZHistorie = new LivePZHistorie(docu);
-        teamListe.add(new Spieler(livePZHistorie.getHistorieneintraege(),name));
         return teamListe;
+    }
+
+    private List<Pair<String,String>> getSpielerLinks(Document doc){
+        List<Pair<String,String>> links = new LinkedList<>();
+        Elements eee = doc.select("td:contains(Einzel Bilanzen)")
+                .get(1).parent().parent()
+                .getElementsByTag("tr");
+        for(int i = 3;i<=eee.size()-2;i++){
+            Element element = eee
+            .get(i) //das durchlaufen
+            .getElementsByTag("tr")
+            .get(0)
+            .getElementsByTag("td")
+            .get(3);
+            String name = element.text();
+            String playerLink ="https://steinburg.tischtennislive.de/"+element
+                    .getElementsByTag("a")
+                    .attr("href")
+                    .replace("Vorrunde","EntwicklungTTR");
+            links.add(new ImmutablePair<>(name,playerLink));
+        }
+        return links;
     }
 }

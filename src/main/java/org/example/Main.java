@@ -7,8 +7,8 @@ public class Main {
         try {
             SpielerCreator spielerCreator = new SpielerCreator();
             for(Spieler spieler : spielerCreator.getAlleSpieler()){
-                System.out.println(spieler.name);
-                for(Historieneintrag historieneintrag : spieler.lpzWerte){
+                System.out.println(spieler.getName());
+                for(Historieneintrag historieneintrag : spieler.getLpzWerte()){
                     System.out.println(historieneintrag.getDate());
                     System.out.println(historieneintrag.getPoints());
                 }
@@ -17,5 +17,4 @@ public class Main {
             e.printStackTrace();
         }
     }
-
 }

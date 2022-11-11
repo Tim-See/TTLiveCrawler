@@ -4,26 +4,26 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) {
         try {
+            System.out.println("start crawl");
+
             SpielerCreator spielerCreator = new SpielerCreator();
             Stats stats = new Stats(spielerCreator.getAlleSpieler());
-            System.out.println("Gesamtpunkte:");
-            for(Spieler spieler : stats.sortedByPoints()){
-                    System.out.println(spieler.getName());
-                    System.out.println(spieler.getLpzWerte().get(0).getPoints());
-            }
-            System.out.println();
-            System.out.println("Punkteunterschied 2022:");
-            for(Pair<Spieler, Integer> spielerEin : stats.punkteUnterschiedSeit(LocalDate.of(2022,1,1))){
-                System.out.println(spielerEin.getLeft().getName());
-                System.out.println(spielerEin.getRight());
-            }
-            System.out.println();
+            System.out.println("crawl done!");
+
             WriteCSV writeCSV = new WriteCSV();
-            writeCSV.writeDiff(stats.punkteUnterschiedSeit(LocalDate.of(2022,8,25)));
+
+            writeCSV.writeList(stats.sortedByPoints(),"gesamt");
+
+            LocalDate date = LocalDate.of(2022,1,1);
+            writeCSV.writeDiff(stats.punkteUnterschiedSeit(date),"2022",date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+
+            LocalDate date2 = LocalDate.of(2022,8,25);
+            writeCSV.writeDiff(stats.punkteUnterschiedSeit(date2),"saison",date2.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         } catch (IOException e) {
             e.printStackTrace();
         }

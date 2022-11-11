@@ -4,13 +4,10 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Stats {
-    private Set<Spieler> spielerList;
+    private final Set<Spieler> spielerList;
 
     public Stats(Set<Spieler> spielerList) {
         this.spielerList = spielerList;
@@ -26,13 +23,19 @@ public class Stats {
         List<Pair<Spieler,Integer>> punkteListe = new ArrayList<>();
         for(Spieler spieler : this.spielerList){
             List<Historieneintrag> punkte = spieler.getLpzWerte();
-            for(int i=0;i<punkte.size();i++){
-                if(punkte.get(i).getDate().isBefore(date)){
+            boolean written = false;
+            for (Historieneintrag historieneintrag : punkte) {
+                if (historieneintrag.getDate().isBefore(date) && !written) {
                     punkteListe.add(new ImmutablePair<>(spieler,
-                            punkte.get(0).getPoints()-punkte.get(i).getPoints()
-                            ));
-                    break;
+                            punkte.get(0).getPoints() - historieneintrag.getPoints()
+                    ));
+                    written =true;
                 }
+            }
+            if(!written){
+                punkteListe.add(new ImmutablePair<>(spieler,
+                        punkte.get(0).getPoints() - punkte.get(punkte.size()-1).getPoints()
+                ));
             }
         }
         punkteListe.sort(Comparator.comparingInt(p -> - p.getRight()));

@@ -18,4 +18,6 @@ public class Historieneintrag {
         this.date = date;
         this.points = points;
     }
+
+
 }

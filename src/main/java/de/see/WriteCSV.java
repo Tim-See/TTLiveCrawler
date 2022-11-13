@@ -36,7 +36,7 @@ public class WriteCSV {
     private void writePair(List<Pair<Spieler, Integer>> list, String dateiname, PrintWriter writer, StringBuilder sb) {
         sb.append(System.lineSeparator());
         for(Pair<Spieler,Integer> spieler : list){
-            sb.append(spieler.getLeft().name());
+            sb.append(spieler.getLeft().getName());
             sb.append(';');
             sb.append(spieler.getRight());
             sb.append(System.lineSeparator());

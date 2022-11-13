@@ -17,11 +17,11 @@ public class Stats {
     public List<Pair<Spieler,Integer>> sortedByPointsAt(LocalDate date){
         List<Pair<Spieler,Integer>> punkteListe = new ArrayList<>();
         for(Spieler spieler : this.spielerList){
-            List<Historieneintrag> punkte = spieler.lpzWerte();
+            List<Historieneintrag> punkte = spieler.getLpzWerte();
             boolean written = false;
             for (Historieneintrag historieneintrag : punkte) {
-                if (historieneintrag.date().isBefore(date.plusDays(1)) && !written) {
-                    punkteListe.add(new ImmutablePair<>(spieler,historieneintrag.points()));
+                if (historieneintrag.getDate().isBefore(date.plusDays(1)) && !written) {
+                    punkteListe.add(new ImmutablePair<>(spieler,historieneintrag.getPoints()));
                     written = true;
                 }
             }
@@ -37,19 +37,19 @@ public class Stats {
     public List<Pair<Spieler,Integer>> punkteUnterschiedSeit(LocalDate date){
         List<Pair<Spieler,Integer>> punkteListe = new ArrayList<>();
         for(Spieler spieler : this.spielerList){
-            List<Historieneintrag> punkte = spieler.lpzWerte();
+            List<Historieneintrag> punkte = spieler.getLpzWerte();
             boolean written = false;
             for (Historieneintrag historieneintrag : punkte) {
-                if (historieneintrag.date().isBefore(date) && !written) {
+                if (historieneintrag.getDate().isBefore(date) && !written) {
                     punkteListe.add(new ImmutablePair<>(spieler,
-                            punkte.get(0).points() - historieneintrag.points()
+                            punkte.get(0).getPoints() - historieneintrag.getPoints()
                     ));
                     written =true;
                 }
             }
             if(!written){
                 punkteListe.add(new ImmutablePair<>(spieler,
-                        punkte.get(0).points() - punkte.get(punkte.size()-1).points()
+                        punkte.get(0).getPoints() - punkte.get(punkte.size()-1).getPoints()
                 ));
             }
         }

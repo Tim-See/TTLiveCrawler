@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LivePZHistorie {
-    private Document doc;
+    private final Document doc;
 
     public LivePZHistorie(Document doc) {
         this.doc = doc;

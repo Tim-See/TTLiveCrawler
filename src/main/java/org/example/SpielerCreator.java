@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class SpielerCreator {
-    private Document vereinDoc;
+    private final Document vereinDoc;
     public SpielerCreator() throws IOException {
         this.vereinDoc = Jsoup
                 .connect("https://steinburg.tischtennislive.de/?" +
@@ -56,8 +56,7 @@ public class SpielerCreator {
                 LivePZHistorie livePZHistorie = new LivePZHistorie(docu);
                 teamListe.add(new Spieler(livePZHistorie.getHistorieneintraege(),linkz.getLeft()));
             }
-            catch(NullPointerException ignored){
-            }
+            catch(NullPointerException ignored){}
         }
         return teamListe;
     }

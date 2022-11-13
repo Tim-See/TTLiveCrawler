@@ -15,26 +15,26 @@ public class Stats {
 
     public List<Spieler> sortedByPoints(){
         List<Spieler> out = new java.util.ArrayList<>(this.spielerList.stream().toList());
-        out.sort(Comparator.comparingInt(s -> - s.getLpzWerte().get(0).getPoints()));
+        out.sort(Comparator.comparingInt(s -> - s.lpzWerte().get(0).points()));
         return out;
     }
 
     public List<Pair<Spieler,Integer>> punkteUnterschiedSeit(LocalDate date){
         List<Pair<Spieler,Integer>> punkteListe = new ArrayList<>();
         for(Spieler spieler : this.spielerList){
-            List<Historieneintrag> punkte = spieler.getLpzWerte();
+            List<Historieneintrag> punkte = spieler.lpzWerte();
             boolean written = false;
             for (Historieneintrag historieneintrag : punkte) {
-                if (historieneintrag.getDate().isBefore(date) && !written) {
+                if (historieneintrag.date().isBefore(date) && !written) {
                     punkteListe.add(new ImmutablePair<>(spieler,
-                            punkte.get(0).getPoints() - historieneintrag.getPoints()
+                            punkte.get(0).points() - historieneintrag.points()
                     ));
                     written =true;
                 }
             }
             if(!written){
                 punkteListe.add(new ImmutablePair<>(spieler,
-                        punkte.get(0).getPoints() - punkte.get(punkte.size()-1).getPoints()
+                        punkte.get(0).points() - punkte.get(punkte.size()-1).points()
                 ));
             }
         }

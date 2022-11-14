@@ -30,6 +30,7 @@ public class SpielerCreator {
                 .getElementsByTag("tbody")
                 .get(0)
                 .getElementsByTag("tr");
+        List<String> linkList = new ArrayList<>();
         for(int i=1;i<uebersicht.size();i++){
                 String link =
                         "https://steinburg.tischtennislive.de/" +
@@ -38,8 +39,15 @@ public class SpielerCreator {
                                 .get(3)
                                 .getElementsByTag("a")
                                 .attr("href");
-                spielerListe.addAll(getTeamListe(link));
+                linkList.add(link);
         }
+        linkList.parallelStream().forEach(link -> {
+            try {
+                spielerListe.addAll(getTeamListe(link));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         return spielerListe;
     }
 

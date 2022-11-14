@@ -2,15 +2,19 @@ package de.seemann;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class WriteCSV {
     public void writeDiff(List<Pair<Spieler,Integer>> pairList, String dateiname, String seitDat){
-        try (PrintWriter writer = new PrintWriter("src/main/resources/"+dateiname+".csv")) {
+        try (PrintWriter writer = new PrintWriter( createFileWithDir("src/main/resources/",dateiname+".csv"))) {
             StringBuilder sb = new StringBuilder();
             sb.append("Name");
             sb.append(';');
@@ -29,7 +33,7 @@ public class WriteCSV {
         }
     }
     public void writeList(List<Spieler> list, String dateiname){
-        try (PrintWriter writer = new PrintWriter("src/main/resources/"+dateiname+".csv")) {
+        try (PrintWriter writer = new PrintWriter(createFileWithDir( "src/main/resources/",dateiname+".csv"))) {
             StringBuilder sb = new StringBuilder();
             sb.append("Name");
             sb.append(';');
@@ -46,5 +50,10 @@ public class WriteCSV {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public File createFileWithDir(String directory, String filename) {
+        File dir = new File(directory);
+        if (!dir.exists()) dir.mkdirs();
+        return new File(directory + File.separatorChar + filename);
     }
 }

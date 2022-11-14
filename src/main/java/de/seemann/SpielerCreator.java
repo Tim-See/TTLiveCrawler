@@ -67,7 +67,8 @@ public class SpielerCreator {
             catch(NullPointerException ignored){} catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        });
+        }
+        );
         return teamListe;
     }
 
@@ -77,7 +78,6 @@ public class SpielerCreator {
             Elements eee = doc.select("td:contains(Einzel Bilanzen)")
                     .get(1).parent().parent()
                     .getElementsByTag("tr");
-
             for (int i = 3; i <= eee.size() - 2; i++) {
                 Element element = eee
                         .get(i) //das durchlaufen

@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class WriteCSV {
-    public void writeDiff(List<Pair<Spieler,Integer>> pairList, String dateiname, String seitDat){
-        try (PrintWriter writer = new PrintWriter( createFileWithDir("src/main/resources/",dateiname+".csv"))) {
+    public void writeDiff(List<Pair<Spieler,Integer>> pairList, String seitDat, String dateiname, String pfad){
+        try (PrintWriter writer = new PrintWriter( createFileWithDir(pfad,dateiname+".csv"))) {
             StringBuilder sb = new StringBuilder();
             sb.append("Name");
             sb.append(';');
@@ -32,8 +32,8 @@ public class WriteCSV {
             System.out.println(e.getMessage());
         }
     }
-    public void writeList(List<Spieler> list, String dateiname){
-        try (PrintWriter writer = new PrintWriter(createFileWithDir( "src/main/resources/",dateiname+".csv"))) {
+    public void writeList(List<Spieler> list, String dateiname, String pfad){
+        try (PrintWriter writer = new PrintWriter(createFileWithDir( pfad,dateiname+".csv"))) {
             StringBuilder sb = new StringBuilder();
             sb.append("Name");
             sb.append(';');

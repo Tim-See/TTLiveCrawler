@@ -48,7 +48,7 @@ public class SpielerCreator {
         Document doc = Jsoup
                 .connect(link)
                 .get();
-        for(Pair<String,String> linkz : getSpielerLinks(doc)){
+        (getSpielerLinks(doc)).parallelStream().forEach(linkz-> {
             try{
                 Document docu = Jsoup
                         .connect(linkz.getRight())
@@ -56,8 +56,10 @@ public class SpielerCreator {
                 LivePZHistorie livePZHistorie = new LivePZHistorie(docu);
                 teamListe.add(new Spieler(livePZHistorie.getHistorieneintraege(),linkz.getLeft()));
             }
-            catch(NullPointerException ignored){}
-        }
+            catch(NullPointerException ignored){} catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         return teamListe;
     }
 

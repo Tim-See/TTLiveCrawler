@@ -12,14 +12,9 @@ import java.util.*;
 
 public class SpielerCreator {
     private final Document vereinDoc;
-    public SpielerCreator() throws IOException {
+    public SpielerCreator(String vereinLink) throws IOException {
         this.vereinDoc = Jsoup
-                .connect("https://steinburg.tischtennislive.de/?" +
-                        "L1=Public" +
-                        "&L2=Verein" +
-                        "&L2P=239" +
-                        "&Page=Spielbetrieb" +
-                        "&Sportart=96")
+                .connect(vereinLink)
                 .get();
     }
     public Set<Spieler> getAlleSpieler() throws IOException {

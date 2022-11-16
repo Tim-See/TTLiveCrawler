@@ -9,7 +9,7 @@ public class Main {
         try {
             System.out.println("start crawl");
             long sZeit = System.currentTimeMillis();
-            SpielerCreator spielerCreator = new SpielerCreator();
+            SpielerCreator spielerCreator = new SpielerCreator(args[0]);
             Stats stats = new Stats(spielerCreator.getAlleSpieler());
             System.out.println("crawl done! (" + (System.currentTimeMillis() - sZeit)/1000.0 +"s)");
 

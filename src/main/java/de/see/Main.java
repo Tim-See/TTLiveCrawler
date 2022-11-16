@@ -1,4 +1,4 @@
-package de.seemann;
+package de.see;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,10 +15,13 @@ public class Main {
 
             WriteCSV writeCSV = new WriteCSV();
             String path = "ergebnisse/" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
-            writeCSV.writeList(stats.sortedByPoints(),"gesamt",path);
+            writeCSV.writeList(stats.sortedByPointsAt(LocalDate.now()),LocalDate.now(), "gesamt",path);
 
             LocalDate date = LocalDate.of(2022,1,1);
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date),date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"2022",path);
+
+            LocalDate date3 = LocalDate.of(2022,8,1);
+            writeCSV.writeList(stats.sortedByPointsAt(date3),date3,"Bezirk",path);
 
             LocalDate date2 = LocalDate.of(2022,8,25);
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date2),date2.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"saison",path);

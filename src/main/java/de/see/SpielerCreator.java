@@ -1,4 +1,4 @@
-package de.seemann;
+package de.see;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;

@@ -1,4 +1,4 @@
-package de.seemann;
+package de.see;
 
 import java.time.LocalDate;
 

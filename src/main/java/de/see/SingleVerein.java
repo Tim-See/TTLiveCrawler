@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Main {
+
+
+public class SingleVerein {
+
     public static void main(String[] args) {
+
         try {
             System.out.println("start crawl");
             long sZeit = System.currentTimeMillis();
@@ -21,7 +25,7 @@ public class Main {
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date),date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"2022",path);
 
             LocalDate date3 = LocalDate.of(2022,8,1);
-            writeCSV.writeList(stats.sortedByPointsAt(date3),date3,"Bezirk",path);
+            writeCSV.writeList(stats.sortedByPointsAt(date3),date3,"bezirk",path);
 
             LocalDate date2 = LocalDate.of(2022,8,25);
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date2),date2.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"saison",path);

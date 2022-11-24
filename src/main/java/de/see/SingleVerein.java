@@ -24,8 +24,6 @@ public class SingleVerein {
             LocalDate date = LocalDate.of(2022,1,1);
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date),date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"2022",path);
 
-            LocalDate date3 = LocalDate.of(2022,8,1);
-            writeCSV.writeList(stats.sortedByPointsAt(date3),date3,"bezirk",path);
 
             LocalDate date2 = LocalDate.of(2022,8,25);
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date2),date2.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"saison",path);

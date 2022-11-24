@@ -18,7 +18,7 @@ public class SingleVerein {
             System.out.println("crawl done! (" + (System.currentTimeMillis() - sZeit)/1000.0 +"s)");
 
             WriteCSV writeCSV = new WriteCSV();
-            String path = "ergebnisse/" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+            String path = args[1] + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             writeCSV.writeList(stats.sortedByPointsAt(LocalDate.now()),LocalDate.now(), "gesamt",path);
 
             LocalDate date = LocalDate.of(2022,1,1);

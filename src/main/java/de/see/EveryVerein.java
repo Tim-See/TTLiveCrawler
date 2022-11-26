@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class EveryVerein {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Set<Spieler> spielerList = new HashSet<>();
         long sZeit = System.currentTimeMillis();
         System.out.println("start crawl");

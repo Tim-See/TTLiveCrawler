@@ -84,7 +84,8 @@ public class SpielerCreator {
                 String playerLink = "https://steinburg.tischtennislive.de/" + element
                         .getElementsByTag("a")
                         .attr("href")
-                        .replace("Vorrunde", "EntwicklungTTR");
+                        .replace("Vorrunde", "EntwicklungTTR")
+                        .replace("Rueckrunde", "EntwicklungTTR");
                 links.add(new ImmutablePair<>(name, playerLink));
             }
         }

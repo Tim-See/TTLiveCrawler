@@ -21,8 +21,8 @@ public class SingleVerein {
             String path = args[1] + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             writeCSV.writeList(stats.sortedByPointsAt(LocalDate.now()),LocalDate.now(), "gesamt",path);
 
-            LocalDate date = LocalDate.of(2022,1,1);
-            writeCSV.writeDiff(stats.punkteUnterschiedSeit(date),date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"2022",path);
+            LocalDate date = LocalDate.now().withDayOfYear(1);
+            writeCSV.writeDiff(stats.punkteUnterschiedSeit(date),date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),date.format(DateTimeFormatter.ofPattern("yyyy")),path);
 
 
             LocalDate date2 = LocalDate.of(2022,8,25);

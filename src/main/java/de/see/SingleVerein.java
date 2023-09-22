@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
-
 public class SingleVerein {
 
     public static void main(String[] args) {
@@ -25,7 +23,7 @@ public class SingleVerein {
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date),date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),date.format(DateTimeFormatter.ofPattern("yyyy")),path);
 
 
-            LocalDate date2 = LocalDate.of(2022,8,25);
+            LocalDate date2 = LocalDate.of(2023,8,25);
             writeCSV.writeDiff(stats.punkteUnterschiedSeit(date2),date2.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),"saison",path);
         } catch (IOException e) {
             e.printStackTrace();
